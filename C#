@@ -1,0 +1,72 @@
+Student.cs
+using System.ComponentModel.DataAnnotations;
+
+namespace CodeFirstDemo
+{
+    public class Student
+    {
+        [Key]
+        public int StudentId { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+    }
+}
+StudentContext.cs
+using System.Data.Entity;
+
+namespace CodeFirstDemo
+{
+    public class StudentContext : DbContext
+    {
+        public StudentContext() : base("StudentDB")
+        {
+        }
+
+        public DbSet<Student> Students { get; set; }
+    }
+}
+Program.cs
+using System;
+
+namespace CodeFirstDemo
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            using (var db = new StudentContext())
+            {
+                Student student = new Student
+                {
+                    FirstName = "John",
+                    LastName = "Smith"
+                };
+
+                db.Students.Add(student);
+                db.SaveChanges();
+
+                Console.WriteLine("Student added successfully!");
+            }
+
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
+        }
+    }
+}
+NuGet Package
+Install-Package EntityFramework
+CodeFirstDemo
+│
+├── Student.cs
+├── StudentContext.cs
+├── Program.cs
+├── App.config
+└── Packages
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/YourUsername/CodeFirstDemo.git
+git push -u origin main
